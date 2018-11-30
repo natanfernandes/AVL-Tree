@@ -10,12 +10,6 @@ class Tree():
         self.altura = 0
         self.fator_balanceamento = 0
 
-    def getAltura(self):
-        if self.node != None:
-            return self.altura
-        else: 
-            return 0
-
     def sucessor(self,node):    #retorna o sucessor, o menor valor a esquerda
         node = node.direita.node  
         if node != None: 
@@ -177,21 +171,23 @@ class Tree():
             return 
 
     def buscar(self,val):
-        if self.node != None:
+        if self.node != None: #percorre a arvore usando a mesma mecanica do deletar ate achar o elemento
             if self.node.val == val:
                 print('Achado o valor : ',val)
+                return True
             elif val < self.node.val: 
                 self.node.esquerda.buscar(val)  
             elif val > self.node.val: 
                 self.node.direita.buscar(val)
         else:
             print('Nao esta na arvore')
+            return False
 
     def print(self,level=0, pref=''):
         self.calcTamanho()
-        if(level == 0):
-            pref = "(Raiz)"
-       
+        if(level == 0): #pref diz ao tipo, se < é filho a esquerda, se > é filho a direita
+            pref = "(Raiz)" #se raiz é o no raiz da arvore
+
         self.calcFatorBalanceamento()
         if(self.node != None): 
             print ('Nivel : ',str(level), pref,' Valor do No : ', self.node.val, "[ Altura = " + str(self.altura) + " : FB = " + str(self.fator_balanceamento) + "]", 'Folha' if self.e_folha() else ' ')   
